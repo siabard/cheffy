@@ -5,10 +5,13 @@
             ["@smooth-ui/core-sc" :refer [Normalize Button Box]]
             ["styled-components" :refer [ThemeProvider]]
             [app.db]
+            [app.router :as router]
             ;; -- auth --
             [app.auth.views.profile :refer [profile]]
             [app.auth.views.sign-up :refer [sign-up]]
             [app.auth.views.log-in :refer [log-in]]
+            [app.auth.events]
+            [app.auth.subs]
             ;; -- become-a-chef --
             [app.become-a-chef.views.become-a-chef :refer [become-a-chef]]
             ;; -- recipes --
@@ -34,15 +37,15 @@
 
 (defn app
   []
-  (let [active-nav @(rf/subscribe [:active-nav])]
+  (let [active-page @(rf/subscribe [:active-page])]
     [:<>
      [:> Normalize]
      [:> ThemeProvider {:theme cheffy-theme}
-      [:> Box {:mx "auto" :px 20 :maxWidth 800 :fluid false}
+      [:> Box {:mx "auto" :px 20 :maxWidth 800}
        [:> Box {:row true}
         [:> Box {:col true}
          [nav]
-         [pages active-nav]]]]
+         [pages active-page]]]]
       ]]))
 
 (defn ^:dev/after-load start
@@ -52,8 +55,16 @@
 
 (defn ^:export init
   []
+  (router/start!)
   (rf/dispatch-sync [:initialize-db])
   (start))
+
+
+
+
+
+
+
 
 
 

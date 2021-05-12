@@ -3,6 +3,7 @@
             [re-frame.core :as rf]
             [app.components.page-nav :refer [page-nav]]
             [app.components.form-group :refer [form-group]]
+            [app.router :as router]
             ["@smooth-ui/core-sc" :refer [Box Button Form FormField FormFieldLabel Input]]))
 
 (defn log-in
@@ -26,31 +27,11 @@
           [:> FormField {:row true}
            [:> Box {:col true
                     :display "flex"
-                   :justify-content "space-between"}
+                    :justify-content "space-between"}
             [:> Box {:py 1
                      :pr 2}
-            [:a {:href "#sign-up"
-                 :on-click #(rf/dispatch [:set-active-nav :sign-up])}
+             [:a {:href (router/path-for :sign-up)
+                  :on-click #(rf/dispatch [:set-active-nage :sign-up])}
              "New to Cheffy? Create an account!"]]]
-           [:> Button {:on-click #(js/console.log "log-in")} "Log in"]
+           [:> Button {:on-click #(rf/dispatch [:log-in @values])} "Log in"]
            ]]]]])))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
