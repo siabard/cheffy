@@ -25,8 +25,8 @@
   (pushy/start! history))
 
 (defn path-for ;; (router/path-for :save)
-  [route]
-  (bidi/path-for routes route))
+  [& route]
+  (apply bidi/path-for routes route))
 
 (defn set-token!
   [token]

@@ -15,7 +15,10 @@
             ;; -- become-a-chef --
             [app.become-a-chef.views.become-a-chef :refer [become-a-chef]]
             ;; -- recipes --
-            [app.recipes.views.recipes :refer [recipes]]
+            [app.recipes.events]
+            [app.recipes.subs]
+            [app.recipes.views.recipes-page :refer [recipes-page]]
+            [app.recipes.views.recipe-page :refer [recipe-page]]
             ;; -- inbox
             [app.inbox.views.inboxes :refer [inboxes]]
             ;; -- nav --
@@ -32,8 +35,9 @@
     :log-in [log-in]
     :become-a-chef [become-a-chef]
     :inboxes [inboxes]
-    :recipes [recipes]
-    [recipes]))
+    :recipes [recipes-page]
+    :recipe [recipe-page]
+    [recipes-page]))
 
 (defn app
   []
@@ -58,15 +62,3 @@
   (router/start!)
   (rf/dispatch-sync [:initialize-db])
   (start))
-
-
-
-
-
-
-
-
-
-
-
-
